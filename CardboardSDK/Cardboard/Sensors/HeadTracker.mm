@@ -279,6 +279,10 @@ void HeadTracker::updateDeviceOrientation(UIInterfaceOrientation orientation)
     {
         _displayFromDevice = GetRotateEulerMatrix(0.f, 0.f, -90.f);
     }
+    else if (orientation == UIInterfaceOrientationPortrait)
+    {
+        _displayFromDevice = GetRotateEulerMatrix(0.f, 0.f, 0.f);
+    }
 }
 
 bool HeadTracker::neckModelEnabled()
