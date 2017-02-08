@@ -90,6 +90,10 @@ void DistortionRenderer::setTextureFormat(GLint textureFormat, GLint textureType
     }
 }
 
+/**
+ prepare a framebuffer object for off-screen render,
+ will bind to this fbo
+ */
 void DistortionRenderer::beforeDrawFrame()
 {
     _drawingFrame = true;
