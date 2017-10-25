@@ -15,7 +15,8 @@ namespace CardboardSDK
 MagnetSensor::MagnetSensor() :
     _sampleIndex(0),
     _sensorData(2 * numberOfSamples),
-    _offsets(numberOfSamples)
+    _offsets(numberOfSamples),
+    _pause(false)
 {
     _manager = [[CMMotionManager alloc] init];
 }
@@ -25,10 +26,13 @@ void MagnetSensor::start()
     if (_manager.isMagnetometerAvailable && !_manager.isMagnetometerActive)
     {
         _manager.magnetometerUpdateInterval = 1.0f / 100.0f;
-        NSOperationQueue *magnetometerQueue = [[NSOperationQueue alloc] init];
+        magnetometerQueue = [[NSOperationQueue alloc] init];
         [_manager startMagnetometerUpdatesToQueue:magnetometerQueue
                                       withHandler:^(CMMagnetometerData *magnetometerData, NSError *error)
         {
+            if (_pause) {
+                return;
+            }
             addData(GLKVector3 {
                 (float) magnetometerData.magneticField.x,
                 (float) magnetometerData.magneticField.y,
@@ -39,7 +43,9 @@ void MagnetSensor::start()
 
 void MagnetSensor::stop()
 {
+    _pause = true;
     [_manager stopMagnetometerUpdates];
+    [magnetometerQueue cancelAllOperations];
 }
 
 void MagnetSensor::addData(GLKVector3 value)

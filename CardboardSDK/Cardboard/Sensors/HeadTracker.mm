@@ -112,7 +112,7 @@ HeadTracker::~HeadTracker()
 void HeadTracker::startTracking(UIInterfaceOrientation orientation)
 {
     updateDeviceOrientation(orientation);
-    
+    _willStop = false;
     _tracker->reset();
     
     _headingCorrectionComputed = false;
@@ -153,6 +153,10 @@ void HeadTracker::startTracking(UIInterfaceOrientation orientation)
     NSOperationQueue *deviceMotionQueue = [[NSOperationQueue alloc] init];
     _motionManager.deviceMotionUpdateInterval = 1.0/100.0;
     [_motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical toQueue:deviceMotionQueue withHandler:^(CMDeviceMotion *motion, NSError *error) {
+        // here dangerous, if don't judge, will cause memory problem --yzxhu
+        if (_willStop) {
+            return;
+        }
         ++_sampleCount;
         if (_sampleCount <= CBDInitialSamplesToSkip) { return; }
         CMAcceleration acceleration = motion.gravity;
@@ -169,6 +173,7 @@ void HeadTracker::startTracking(UIInterfaceOrientation orientation)
 
 void HeadTracker::stopTracking()
 {
+    _willStop = true;
   #if HEAD_TRACKER_MODE == HEAD_TRACKER_MODE_EKF
     [_motionManager stopAccelerometerUpdates];
     [_motionManager stopGyroUpdates];

@@ -25,7 +25,7 @@ Vector3d::Vector3d(double x, double y, double z)
     set(x, y, z);
 }
 
-void Vector3d::set(double x, double y, double z)
+void Vector3d::set(double x, double y, double z)//这里有个bug
 {
     _x = x;
     _y = y;

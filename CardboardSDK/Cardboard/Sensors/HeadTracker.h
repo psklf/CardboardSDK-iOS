@@ -48,6 +48,8 @@ class HeadTracker
 
     const float _defaultNeckHorizontalOffset = 0.08f;
     const float _defaultNeckVerticalOffset = 0.075f;
+    // add by yxzhu
+    bool _willStop;
 };
 
 }

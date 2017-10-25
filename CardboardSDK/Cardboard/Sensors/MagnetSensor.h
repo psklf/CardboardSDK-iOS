@@ -32,7 +32,8 @@ class MagnetSensor
     GLKVector3 _baseline;
     std::vector<GLKVector3> _sensorData;
     std::vector<float> _offsets;
-    
+    bool _pause;
+    NSOperationQueue *magnetometerQueue;
 
     void addData(GLKVector3 value);
     void evaluateModel();
