@@ -168,6 +168,7 @@ float ScreenParams::pixelsPerInch(UIScreen *screen)
           @"iPad3,1", @"iPad3,2", @"iPad3,3", @"iPad3,4",
           @"iPad3,5", @"iPad3,6", @"iPad4,1", @"iPad4,2"],
     @"pointsPerInch": @132.0f},
+
   // iPhones, iPad Minis and simulators
   @{@"identifiers":
         @[@"iPod5,1",
@@ -179,7 +180,11 @@ float ScreenParams::pixelsPerInch(UIScreen *screen)
           @"iPhone6,1", @"iPhone6,2",
           @"iPhone7,1", @"iPhone7,2",
           @"iPhone8,1", @"iPhone8,2",
-          @"iPhone9,1", @"iPhone9,2", @"iPhone9,3", @"iPhone9,4",
+          @"iPhone9,1", @"iPhone9,3",    // iPhone7
+          @"iPhone9,2", @"iPhone9,4",    // iPhone7 Plus
+          @"iPhone10,1", @"iPhone10,4",  // iPhone8
+          @"iPhone10,2", @"iPhone10,5",  // iPhone8 Plus
+          @"iPhone10,3", @"iPhone10,6",  // iPhoneX
           @"iPad2,5", @"iPad2,6", @"iPad2,7",
           @"iPad4,4", @"iPad4,5",
           @"i386", @"x86_64"],
